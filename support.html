@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radio KZ Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#0a0a0a;--sub:#6b6b70;--line:#e7e7ea;--card:#f4f4f6;--red:#ff3b30}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0b0c;--ink:#f5f5f7;--sub:#9a9aa2;--line:#26262a;--card:#17171a}}
+:root[data-theme="dark"]{--bg:#0b0b0c;--ink:#f5f5f7;--sub:#9a9aa2;--line:#26262a;--card:#17171a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:28px 16px 64px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.brand{font-weight:900;font-size:24px;letter-spacing:-.6px}.brand i{font-style:normal;color:var(--red)}
+.tabs{display:flex;background:var(--card);border-radius:999px;padding:4px}
+.tabs button{border:0;background:none;color:var(--sub);font:600 13px Inter,sans-serif;letter-spacing:.06em;padding:8px 14px;border-radius:999px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+h1{font-size:clamp(30px,7vw,44px);line-height:1.05;letter-spacing:-1.2px;font-weight:900;margin:0 0 10px;overflow-wrap:anywhere}
+.sub{color:var(--sub);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:0 0 36px}
+section{padding:20px 0;border-top:1px solid var(--line)}
+h2{font-size:18px;font-weight:800;margin:0 0 6px;letter-spacing:-.2px}
+section p{margin:0;color:var(--sub)}ul{margin:10px 0 0;padding-left:20px;color:var(--sub)}li{margin:6px 0}
+.contact{margin-top:28px;background:var(--card);border-radius:24px;padding:22px}
+.label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.mail{font-size:19px;font-weight:800;margin:6px 0 4px;user-select:all;overflow-wrap:anywhere}.note{color:var(--sub);font-size:14px}
+.lang{display:none}.lang.on{display:block}
+footer{margin-top:48px;color:var(--sub);font-size:13px}
+</style></head><body><div class="wrap">
+<header><div class="brand">Radio KZ<i>.</i></div>
+<div class="tabs" role="group" aria-label="Language"><button data-l="kz">ҚАЗ</button><button data-l="ru">РУС</button><button data-l="en">ENG</button></div></header>
+<div class="lang" data-lang="kz" lang="kk"><h1>Қолдау</h1><p class="sub">Radio KZ туралы жиі қойылатын сұрақтар</p><section><h2>Станция қосылды, бірақ дыбыс жоқ</h2><p>Кейбір станциялар түнде хабар таратпайды — мысалы, Шалқар 06:00-ден эфирге шығады. Интернет пен дыбыс деңгейін тексеріңіз немесе басқа станцияны қосыңыз.</p></section><section><h2>Станцияда «Тек FM» деп жазылған</h2><p>Оның қосымшада әзірге онлайн-эфирі жоқ. Кәдімгі радиодан тыңдау үшін жиілігін көрсетеміз.</p></section><section><h2>Менің қалам немесе станциям жоқ</h2><p>Бізге жазыңыз — келесі жаңартуда қосамыз.</p></section><section><h2>Қаланы немесе тілді қалай ауыстыруға болады</h2><p>Қала — басты экрандағы карта немесе «Барлық қалалар» батырмасы. Тіл — экранның жоғарғы жағындағы ҚАЗ / РУС / ENG ауыстырғышы.</p></section><section><h2>Радио фонда ойнай ма?</h2><p>Иә: экранды құлыптауға немесе басқа қосымшаны ашуға болады. Басқару — құлып экранында және Басқару орталығында. Ұйқы таймері — плеер экранындағы ай белгісі.</p></section><section><h2>Радиостанцияларға</h2><p>Өз станцияңызды қосу, түзету немесе алып тастау үшін станцияның ресми мекенжайынан жазыңыз. Алып тастау туралы өтініштерді 3 жұмыс күні ішінде орындаймыз.</p></section>
+<div class="contact"><div class="label">Байланыс</div><div class="mail">radiokz.support@icloud.com</div><div class="note">Хатқа әдетте 1–2 күнде жауап береміз.</div></div></div><div class="lang" data-lang="ru" lang="ru"><h1>Поддержка</h1><p class="sub">Частые вопросы о Radio KZ</p><section><h2>Станция включилась, но звука нет</h2><p>Некоторые станции ночью не вещают — например, Шалқар выходит в эфир с 06:00. Проверьте интернет и громкость или включите другую станцию.</p></section><section><h2>У станции написано «Только FM»</h2><p>У неё пока нет онлайн-эфира в приложении. Мы показываем её частоту, чтобы вы могли поймать её на обычном радио.</p></section><section><h2>Нет моего города или станции</h2><p>Напишите нам — добавим в следующем обновлении.</p></section><section><h2>Как сменить город или язык</h2><p>Город — карта на главном экране или кнопка «Все города». Язык — переключатель ҚАЗ / РУС / ENG вверху экрана.</p></section><section><h2>Радио играет в фоне?</h2><p>Да: можно заблокировать экран или открыть другое приложение. Управление — на экране блокировки и в Пункте управления. Таймер сна — значок луны на экране плеера.</p></section><section><h2>Для радиостанций</h2><p>Хотите добавить, исправить или убрать свою станцию — напишите с официального адреса станции. Просьбы об удалении выполняем в течение 3 рабочих дней.</p></section>
+<div class="contact"><div class="label">Связаться с нами</div><div class="mail">radiokz.support@icloud.com</div><div class="note">Обычно отвечаем в течение 1–2 дней.</div></div></div><div class="lang" data-lang="en" lang="en"><h1>Support</h1><p class="sub">Frequently asked questions about Radio KZ</p><section><h2>The station started, but there is no sound</h2><p>Some stations are off air at night — for example, Shalkar is on air from 06:00. Check your internet and volume, or try another station.</p></section><section><h2>A station says “FM only”</h2><p>It has no online stream in the app yet. We show its frequency so you can tune in on a regular radio.</p></section><section><h2>My city or station is missing</h2><p>Write to us — we will add it in the next update.</p></section><section><h2>How to change the city or language</h2><p>City — the map on the home screen or the “All cities” button. Language — the ҚАЗ / РУС / ENG switch at the top of the screen.</p></section><section><h2>Does the radio play in the background?</h2><p>Yes: you can lock the screen or open another app. Controls are on the Lock Screen and in Control Center. Sleep timer and bedside clock — the moon icon on the player screen.</p></section><section><h2>For radio stations</h2><p>To add, correct or remove your station, write to us from the station’s official address. Removal requests are handled within 3 working days.</p></section>
+<div class="contact"><div class="label">Contact us</div><div class="mail">radiokz.support@icloud.com</div><div class="note">We usually reply within 1–2 days.</div></div></div>
+<footer>© 2026 Aidos Marat · Radio KZ</footer></div>
+<script>
+(function(){
+ function set(l){document.querySelectorAll('.lang').forEach(function(e){e.classList.toggle('on',e.dataset.lang===l)});
+  document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l)});
+  document.documentElement.lang=l==='kz'?'kk':l;try{localStorage.setItem('rkz-lang',l)}catch(e){}}
+ var l=null;try{l=localStorage.getItem('rkz-lang')}catch(e){}
+ if(!l){var n=(navigator.language||'ru').toLowerCase();l=n.indexOf('kk')===0?'kz':(n.indexOf('en')===0?'en':'ru')}
+ set(l);document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});
+})();
+</script></body></html>
