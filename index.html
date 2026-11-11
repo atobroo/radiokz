@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Radio KZ — Все радио Казахстана. В одном касании.</title>
+  <meta name="description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone, скоро на Mac.">
+  
+  <!-- Open Graph / Facebook / Telegram / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://atobroo.github.io/radiokz/">
+  <meta property="og:title" content="Radio KZ — Все радио Казахстана. В одном касании.">
+  <meta property="og:description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone, скоро на Mac.">
+  <meta property="og:image" content="https://atobroo.github.io/radiokz/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Radio KZ — Все радио Казахстана. В одном касании.">
+  <meta name="twitter:description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone, скоро на Mac.">
+  <meta name="twitter:image" content="https://atobroo.github.io/radiokz/assets/og.jpg">
+
+  <!-- Favicon & Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#0B1020">
+
+  <style>
+    /* =========================================================================
+       FONTS & CSS VARIABLES
+       ========================================================================= */
+    @font-face {
+      font-family: 'Jost';
+      src: url('assets/fonts/Jost-Thin.ttf') format('truetype');
+      font-weight: 100;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Jost';
+      src: url('assets/fonts/Jost-ExtraLight.ttf') format('truetype');
+      font-weight: 200;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Jost';
+      src: url('assets/fonts/Jost-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Jost';
+      src: url('assets/fonts/Jost-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-deep: #070913;
+      --bg-gradient: radial-gradient(120% 100% at 50% 0%, #1A1240 0%, #0D0F22 45%, #070913 100%);
+      --surface-glass: rgba(255, 255, 255, 0.04);
+      --surface-glass-hover: rgba(255, 255, 255, 0.08);
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --surface-border-bright: rgba(255, 255, 255, 0.16);
+      
+      --brand-red: #E5322D;
+      --brand-teal: #2DD4BF;
+      --brand-purple: #8B5CF6;
+      --brand-blue: #38BDF8;
+
+      --text-main: #FFFFFF;
+      --text-sub: rgba(255, 255, 255, 0.72);
+      --text-muted: rgba(255, 255, 255, 0.44);
+
+      --font-sys: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+      --font-jost: 'Jost', var(--font-sys);
+      
+      --max-width: 1180px;
+      --radius-squircle: 22.37%;
+      --radius-card: 24px;
+    }
+
+    /* Fallback for Kazakh Cyrillic to avoid missing glyphs in Jost */
+    html[lang="kk"] h1, 
+    html[lang="kk"] h2, 
+    html[lang="kk"] h3, 
+    html[lang="kk"] .font-display {
+      font-family: var(--font-sys) !important;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: var(--bg-gradient);
+      color: var(--text-main);
+      font-family: var(--font-sys);
+      font-size: 17px;
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* =========================================================================
+       NAVIGATION BAR
+       ========================================================================= */
+    .header-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 19, 0.75);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: background 0.3s ease;
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      height: 64px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+    .nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(229, 50, 45, 0.3);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-link {
+      font-size: 14px;
+      color: var(--text-sub);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .lang-switcher {
+      display: flex;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 100px;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--text-main);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .nav-cta:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 820px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+    }
+
+    /* =========================================================================
+       HERO SECTION WITH LIVE WAVE
+       ========================================================================= */
+    .hero {
+      position: relative;
+      padding: 60px 20px 90px;
+      text-align: center;
+      overflow: hidden;
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-canvas-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.85;
+    }
+    #heroCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 840px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-app-icon {
+      width: 112px;
+      height: 112px;
+      border-radius: 25px;
+      margin: 0 auto 28px;
+      box-shadow: 0 20px 50px rgba(229, 50, 45, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .hero-app-icon:hover {
+      transform: scale(1.05) translateY(-4px);
+    }
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(45, 212, 191, 0.12);
+      border: 1px solid rgba(45, 212, 191, 0.28);
+      border-radius: 100px;
+      color: var(--brand-teal);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brand-teal);
+      box-shadow: 0 0 8px var(--brand-teal);
+    }
+    .hero-title {
+      font-size: 56px;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+    .hero-title-accent {
+      background: linear-gradient(135deg, #FF6F61 0%, #E5322D 50%, #FF9A76 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .hero-subtitle {
+      font-size: 20px;
+      line-height: 1.45;
+      color: var(--text-sub);
+      font-weight: 400;
+      max-width: 640px;
+      margin: 0 auto 36px;
+      letter-spacing: -0.01em;
+    }
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    /* Custom Apple Pill Badge */
+    .btn-appstore {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #000000;
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .btn-appstore:hover {
+      background: #111111;
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+    }
+    .btn-appstore svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+    .btn-appstore-text {
+      text-align: left;
+      line-height: 1.15;
+    }
+    .btn-appstore-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .btn-appstore-main {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .btn-mac-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-sub);
+      padding: 12px 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: default;
+    }
+    .btn-mac-pill svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      opacity: 0.7;
+    }
+    .pill-soon {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 100px;
+      background: rgba(139, 92, 246, 0.2);
+      color: #C4B5FD;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 36px; }
+      .hero-subtitle { font-size: 17px; }
+      .hero-app-icon { width: 92px; height: 92px; border-radius: 20px; }
+    }
+
+    /* =========================================================================
+       SECTION CONTAINERS & TYPOGRAPHY
+       ========================================================================= */
+    .section-wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 90px 20px;
+      position: relative;
+      width: 100%;
+    }
+    .section-head {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 50px;
+    }
+    .section-tag {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-teal);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .section-title {
+      font-size: 40px;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+    .section-desc {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--text-sub);
+      font-weight: 400;
+    }
+
+    @media (max-width: 600px) {
+      .section-wrap { padding: 60px 16px; }
+      .section-title { font-size: 28px; }
+      .section-desc { font-size: 15px; }
+      .mac-panel-anchor { justify-content: center; padding: 10px 6px 0; }
+      .mac-panel { padding: 16px 14px; width: 100%; }
+      .panel-big-freq { font-size: 44px; }
+    }
+
+    /* Reveal animations with IntersectionObserver */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================================
+       SECTION 2: REAL RADIO (TUNER DISPLAY)
+       ========================================================================= */
+    .tuner-card {
+      background: radial-gradient(80% 80% at 50% 20%, rgba(30, 27, 75, 0.5) 0%, rgba(13, 15, 34, 0.8) 100%);
+      border: 1px solid var(--surface-border-bright);
+      border-radius: var(--radius-card);
+      padding: 60px 24px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+    .tuner-freq {
+      font-family: var(--font-jost);
+      font-size: 96px;
+      font-weight: 100;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+    .tuner-station-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--brand-teal);
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+    }
+    .tuner-scale-wrap {
+      max-width: 680px;
+      margin: 0 auto 36px;
+      position: relative;
+      padding: 20px 0;
+      width: 100%;
+    }
+    .tuner-needle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: var(--brand-red);
+      box-shadow: 0 0 14px var(--brand-red);
+      z-index: 5;
+    }
+    .tuner-needle-head {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: var(--brand-red);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--brand-red);
+    }
+    .tuner-ticks {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 48px;
+      padding: 0 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+    .tick {
+      width: 1px;
+      background: rgba(255, 255, 255, 0.25);
+      height: 12px;
+      flex-shrink: 0;
+    }
+    .tick.major {
+      height: 28px;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .tick.mid {
+      height: 18px;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-jost);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      font-weight: 300;
+    }
+    .tuner-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 40px auto 0;
+      text-align: left;
+    }
+    .tuner-feat-item {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+    }
+    .tuner-feat-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+    .tuner-feat-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 768px) {
+      .tuner-freq { font-size: 56px; }
+      .tuner-features { grid-template-columns: 1fr; }
+      .tuner-card { padding: 40px 16px; }
+    }
+
+    /* =========================================================================
+       SECTION 3: CITY SKIN (SHOWCASE)
+       ========================================================================= */
+    .city-card {
+      position: relative;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1px solid var(--surface-border-bright);
+      min-height: 520px;
+      display: flex;
+      align-items: flex-end;
+      padding: 48px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      width: 100%;
+    }
+    .city-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 1;
+      filter: contrast(1.05) brightness(1.04);
+      transition: transform 0.6s ease;
+    }
+    .city-card:hover .city-bg {
+      transform: scale(1.02);
+    }
+    /* Gentle overlay: max 0.45 at bottom, 0.1 at top to keep city lights visible */
+    .city-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 9, 19, 0.1) 0%, rgba(7, 9, 19, 0.25) 50%, rgba(7, 9, 19, 0.45) 100%);
+      z-index: 2;
+    }
+    .city-content {
+      position: relative;
+      z-index: 3;
+      max-width: 680px;
+    }
+    .city-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 100px;
+      background: rgba(229, 50, 45, 0.25);
+      border: 1px solid rgba(229, 50, 45, 0.45);
+      color: #FFA39E;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .city-title {
+      font-size: 36px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+      word-break: break-word;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+    .city-desc {
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    }
+
+    @media (max-width: 600px) {
+      .city-card { padding: 28px 18px; min-height: 420px; }
+      .city-title { font-size: 26px; }
+      .city-desc { font-size: 15px; }
+    }
+
+    /* =========================================================================
+       SECTION 4: KAZAKHSTAN MAP & 35 CITIES
+       ========================================================================= */
+    .map-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-border-bright);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      width: 100%;
+    }
+    .map-img-wrap {
+      position: relative;
+      background: #0B0E20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+    .map-img {
+      width: 100%;
+      max-height: 540px;
+      object-fit: cover;
+      display: block;
+    }
+    .map-cities-bar {
+      padding: 36px 36px;
+    }
+    .cities-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .cities-title-row h3 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .cities-count-pill {
+      font-size: 13px;
+      color: var(--brand-teal);
+      background: rgba(45, 212, 191, 0.1);
+      border: 1px solid rgba(45, 212, 191, 0.25);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+    .cities-tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .city-tag {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text-sub);
+      transition: all 0.2s ease;
+    }
+    .city-tag:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    @media (max-width: 600px) {
+      .map-cities-bar { padding: 24px 16px; }
+      .city-tag { font-size: 13px; padding: 5px 10px; }
+    }
+
+    /* =========================================================================
+       SECTION 5: SCREENSHOT GALLERY (6 SCREENS)
+       ========================================================================= */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+    }
+    .gallery-item {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-card);
+      padding: 24px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--surface-border-bright);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    .gallery-frame {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+      margin-bottom: 20px;
+      background: #000;
+    }
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .gallery-num {
+      font-size: 11px;
+      color: var(--brand-teal);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .gallery-caption-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+    .gallery-caption-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =========================================================================
+       SECTION 6: ABAI QUOTE («СӨЗ»)
+       ========================================================================= */
+    .quote-card {
+      position: relative;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      border: 1px solid var(--surface-border-bright);
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      width: 100%;
+    }
+    .quote-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      filter: brightness(0.4) saturate(1.1);
+    }
+    .quote-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(11, 16, 32, 0.4) 0%, rgba(7, 9, 19, 0.85) 100%);
+      z-index: 2;
+    }
+    .quote-content {
+      position: relative;
+      z-index: 3;
+      max-width: 720px;
+      width: 100%;
+    }
+    .quote-ornament {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 20px;
+      fill: var(--brand-teal);
+      opacity: 0.85;
+    }
+    .quote-tag {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--brand-teal);
+      margin-bottom: 24px;
+    }
+    .quote-text-kz {
+      font-size: 32px;
+      line-height: 1.35;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+      font-style: italic;
+    }
+    .quote-text-trans {
+      font-size: 18px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 24px;
+    }
+    .quote-author {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--brand-teal);
+      letter-spacing: 0.02em;
+    }
+    .quote-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .quote-card { padding: 40px 16px; min-height: 380px; }
+      .quote-text-kz { font-size: 22px; }
+      .quote-text-trans { font-size: 15px; }
+    }
+
+    /* =========================================================================
+       SECTION 7: FEATURES GRID (8 CARDS)
+       ========================================================================= */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+    .feat-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      padding: 26px 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .feat-card:hover {
+      background: var(--surface-glass-hover);
+      border-color: var(--surface-border-bright);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+    }
+    .feat-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--brand-teal);
+    }
+    .feat-icon-wrap svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+    .feat-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .feat-desc {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-sub);
+    }
+
+    @media (max-width: 1000px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =========================================================================
+       SECTION 8: MAC EXPERIENCE (VIVID MENU BAR PANEL MOCKUP)
+       ========================================================================= */
+    .mac-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+    }
+    .mac-info {
+      min-width: 0;
+      width: 100%;
+    }
+    .mac-mockup-wrap {
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .mac-panel-anchor {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 14px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .mac-panel {
+      width: 310px;
+      max-width: 100%;
+      box-sizing: border-box;
+      background: rgba(14, 18, 34, 0.88);
+      backdrop-filter: saturate(190%) blur(40px);
+      -webkit-backdrop-filter: saturate(190%) blur(40px);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      position: relative;
+    }
+    .mac-info h3 {
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .mac-info p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--text-sub);
+      margin-bottom: 28px;
+    }
+    .shortcuts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .shortcut-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .key-badge {
+      font-family: var(--font-sys);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #FFFFFF;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      min-width: 32px;
+      text-align: center;
+    }
+    .key-label {
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    /* Enhanced macOS Desktop & Panel Mockup */
+    .mac-mockup-wrap {
+      width: 100%;
+    }
+    .mac-desktop-screen {
+      background: radial-gradient(110% 110% at 75% 25%, #351C75 0%, #17183B 48%, #090B18 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      padding-bottom: 32px;
+      position: relative;
+    }
+    .mac-menubar {
+      height: 32px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+      position: relative;
+      z-index: 10;
+    }
+    .mac-menu-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 500;
+    }
+    .mac-menu-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mac-active-icon {
+      background: rgba(229, 50, 45, 0.28);
+      border: 1px solid rgba(229, 50, 45, 0.5);
+      border-radius: 6px;
+      padding: 3px 8px;
+      color: #FFA39E;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 12px rgba(229, 50, 45, 0.35);
+    }
+    
+    /* Dropping glass panel */
+    .mac-panel-anchor {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 18px 0;
+    }
+    .mac-panel {
+      width: 320px;
+      max-width: 100%;
+      background: rgba(14, 18, 34, 0.88);
+      backdrop-filter: saturate(190%) blur(40px);
+      -webkit-backdrop-filter: saturate(190%) blur(40px);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      padding: 22px;
+      position: relative;
+    }
+    .panel-station-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .panel-station-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .panel-station-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .panel-city-chip {
+      font-size: 12px;
+      color: #2DD4BF;
+      padding: 3px 9px;
+      background: rgba(45, 212, 191, 0.12);
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    /* Giant 104.0 MHZ in Jost Thin */
+    .panel-big-freq {
+      font-family: var(--font-jost);
+      font-size: 52px;
+      font-weight: 100;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      line-height: 1;
+      margin: 8px 0 14px;
+      text-shadow: 0 0 24px rgba(45, 212, 191, 0.3);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .panel-big-freq span {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--brand-teal);
+      letter-spacing: 0.05em;
+    }
+
+    /* MiniTuner Live Wave with station dots */
+    .panel-wave-wrap {
+      height: 48px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .panel-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .panel-status-live {
+      font-size: 12px;
+      color: #2DD4BF;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+    .panel-btn-power {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(229, 50, 45, 0.2);
+      border: 1.5px solid var(--brand-red);
+      color: #FFA39E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(229, 50, 45, 0.5), inset 0 0 8px rgba(229, 50, 45, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .panel-btn-power:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 26px rgba(229, 50, 45, 0.7);
+    }
+
+    @media (max-width: 900px) {
+      .mac-showcase { grid-template-columns: 1fr; }
+      .mac-panel-anchor { justify-content: center; }
+    }
+
+    /* =========================================================================
+       SECTION 9: PRIVACY & VALUES
+       ========================================================================= */
+    .privacy-card {
+      background: radial-gradient(80% 80% at 50% 20%, rgba(20, 24, 45, 0.6) 0%, rgba(10, 13, 28, 0.8) 100%);
+      border: 1px solid var(--surface-border-bright);
+      border-radius: var(--radius-card);
+      padding: 56px 32px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      width: 100%;
+    }
+    .privacy-shield {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 24px;
+      color: var(--brand-teal);
+    }
+    .privacy-shield svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+    .privacy-title {
+      font-size: 34px;
+      line-height: 1.25;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      word-break: break-word;
+    }
+    .privacy-desc {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--text-sub);
+      max-width: 700px;
+      margin: 0 auto 36px;
+    }
+    .privacy-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 820px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+    .pillar-item {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+    }
+    .pillar-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+    .pillar-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .privacy-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .privacy-link {
+      font-size: 14px;
+      color: var(--brand-teal);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transition: color 0.2s ease;
+    }
+    .privacy-link:hover {
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 768px) {
+      .privacy-pillars { grid-template-columns: 1fr; }
+      .privacy-card { padding: 36px 18px; }
+      .privacy-title { font-size: 26px; }
+      .privacy-desc { font-size: 15px; }
+    }
+
+    /* =========================================================================
+       SECTION 10: FINAL CTA & FOOTER
+       ========================================================================= */
+    .final-cta {
+      text-align: center;
+      padding: 80px 20px 80px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+    .cta-title {
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      line-height: 1.15;
+      word-break: break-word;
+    }
+    .cta-desc {
+      font-size: 19px;
+      color: var(--text-sub);
+      max-width: 580px;
+      margin: 0 auto 36px;
+    }
+    
+    .site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px 20px 60px;
+      background: #04060C;
+      width: 100%;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* =========================================================================
+       PREFERS-REDUCED-MOTION
+       ========================================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =======================================================================
+       STICKY NAVIGATION
+       ======================================================================= -->
+  <header class="header-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img class="nav-icon" src="assets/favicon.png" alt="Radio KZ">
+        <span>Radio KZ</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#tuner" class="nav-link" data-i18n="nav_tuner">О радио</a>
+        <a href="#city" class="nav-link" data-i18n="nav_city">Скин «Город»</a>
+        <a href="#map" class="nav-link" data-i18n="nav_map">35 городов</a>
+        <a href="#gallery" class="nav-link" data-i18n="nav_gallery">Скриншоты</a>
+        <a href="#mac" class="nav-link" data-i18n="nav_mac">Mac</a>
+        <a href="#privacy" class="nav-link" data-i18n="nav_privacy">Приватность</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switcher" role="radiogroup" aria-label="Language">
+          <button class="lang-btn active" data-lang="ru" onclick="switchLang('ru')">RU</button>
+          <button class="lang-btn" data-lang="kz" onclick="switchLang('kz')">KZ</button>
+          <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+        </div>
+
+        <a href="https://apps.apple.com/kz/app/radio-kz/id6829140671" target="_blank" rel="noopener" class="nav-cta">
+          <span data-i18n="nav_download">Загрузить</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       1. HERO SECTION
+       ======================================================================= -->
+  <section class="hero" id="hero">
+    <div class="hero-canvas-wrap">
+      <canvas id="heroCanvas"></canvas>
+    </div>
+
+    <div class="hero-content">
+      <img class="hero-app-icon" src="assets/app_icon.png" alt="Radio KZ App Icon">
+      
+      <div>
+        <div class="hero-badge-pill">
+          <span class="hero-badge-dot"></span>
+          <span data-i18n="hero_badge">iOS & macOS · Бесплатно и без рекламы</span>
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        <span data-i18n="hero_title_1">Все радио Казахстана.</span><br>
+        <span class="hero-title-accent" data-i18n="hero_title_2">В одном касании.</span>
+      </h1>
+
+      <p class="hero-subtitle" data-i18n="hero_subtitle">
+        40+ радиостанций · 35 городов · бесплатно · без рекламы
+      </p>
+
+      <div class="hero-buttons">
+        <!-- Apple App Store Custom Pill Badge -->
+        <a href="https://apps.apple.com/kz/app/radio-kz/id6829140671" target="_blank" rel="noopener" class="btn-appstore">
+          <svg viewBox="0 0 170 170">
+            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.6-7.79-11.74-14.24-6.04-9.36-10.74-20.06-14.1-32.1-3.35-12.05-5.03-23.27-5.03-33.68 0-14.54 3.65-26.68 10.96-36.42 7.3-9.74 16.59-14.72 27.84-14.93 4.8 0 10.23 1.34 16.29 4.03 6.06 2.69 10.05 4.09 11.96 4.19 1.57-.1 5.76-1.57 12.56-4.41 6.8-2.84 12.64-4.11 17.5-3.82 13.06.87 23.47 5.76 31.24 14.67-11.39 6.88-16.97 16.53-16.73 28.94.24 9.74 4.03 17.88 11.38 24.41 7.35 6.53 16.03 10.36 26.04 11.49-2.28 7.03-5.22 14.42-8.83 22.18zM119.22 31.86c0-7.39 2.74-14.33 8.22-20.82 5.48-6.49 12.18-10.51 20.1-12.04.22 1.41.33 2.6.33 3.59 0 7.39-2.87 14.47-8.62 21.23-5.75 6.77-12.44 10.73-20.03 11.89-.11-1.3-.17-2.58-.17-3.85z"/>
+          </svg>
+          <div class="btn-appstore-text">
+            <div class="btn-appstore-sub" data-i18n="badge_sub">Загрузите в</div>
+            <div class="btn-appstore-main">App Store</div>
+          </div>
+        </a>
+
+        <!-- Mac Pill -->
+        <div class="btn-mac-pill">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm16 13H4a1 1 0 1 0 0 2h16a1 1 0 1 0 0-2z"/>
+          </svg>
+          <span>Mac</span>
+          <span class="pill-soon" data-i18n="badge_soon">Скоро</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       2. REAL RADIO (TUNER DISPLAY)
+       ======================================================================= -->
+  <section class="section-wrap" id="tuner">
+    <div class="section-head reveal">
+      <span class="section-tag" data-i18n="tuner_tag">Аналоговая душа · Цифровая чистота</span>
+      <h2 class="section-title" data-i18n="tuner_title">Как настоящее радио</h2>
+      <p class="section-desc" data-i18n="tuner_desc">
+        Плавная настройка по FM-шкале, мягкий тактильный отклик и мгновенный чистый звук станций Казахстана.
+      </p>
+    </div>
+
+    <div class="tuner-card reveal">
+      <div class="tuner-freq">101.0 MHZ</div>
+      <div class="tuner-station-name">Radio NS · Алматы</div>
+
+      <div class="tuner-scale-wrap">
+        <div class="tuner-needle">
+          <div class="tuner-needle-head"></div>
+        </div>
+        <div class="tuner-ticks">
+          <span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick mid"></span>
+          <span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span><span class="tick"></span>
+          <span class="tick"></span><span class="tick"></span><span class="tick mid"></span><span class="tick"></span><span class="tick"></span>
+          <span class="tick"></span><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span>
+          <span class="tick mid"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span>
+          <span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick mid"></span><span class="tick"></span>
+          <span class="tick"></span><span class="tick"></span><span class="tick major"></span>
+        </div>
+        <div class="scale-labels">
+          <span>87.5</span>
+          <span>92.0</span>
+          <span>96.0</span>
+          <span>101.0</span>
+          <span>104.0</span>
+          <span>108.0</span>
+        </div>
+      </div>
+
+      <div class="tuner-features">
+        <div class="tuner-feat-item">
+          <div class="tuner-feat-title" data-i18n="tuner_feat1_title">Плавное колесо шкалы</div>
+          <div class="tuner-feat-desc" data-i18n="tuner_feat1_desc">Точная настройка до сотых мегагерца с приятной отдачей Taptic Engine.</div>
+        </div>
+        <div class="tuner-feat-item">
+          <div class="tuner-feat-title" data-i18n="tuner_feat2_title">Автоматический город</div>
+          <div class="tuner-feat-desc" data-i18n="tuner_feat2_desc">Приложение находит частоты станций в городе, где вы находитесь сейчас.</div>
+        </div>
+        <div class="tuner-feat-item">
+          <div class="tuner-feat-title" data-i18n="tuner_feat3_title">Мгновенный старт</div>
+          <div class="tuner-feat-desc" data-i18n="tuner_feat3_desc">Никаких задержек и буферизации — эфир звучит сразу при переключении.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       3. CITY SKIN SHOWCASE
+       ======================================================================= -->
+  <section class="section-wrap" id="city">
+    <div class="section-head reveal">
+      <span class="section-tag" data-i18n="city_tag">Атмосфера дня и ночи</span>
+      <h2 class="section-title" data-i18n="city_title">Скин «Город»</h2>
+      <p class="section-desc" data-i18n="city_desc">
+        Огни ночного мегаполиса оживают в ритме радиоволны. Интерфейс плавно подстраивается под время суток.
+      </p>
+    </div>
+
+    <div class="city-card reveal">
+      <img class="city-bg" src="assets/city_night.webp" alt="Ночной город Казахстан">
+      <div class="city-overlay"></div>
+      <div class="city-content">
+        <span class="city-pill" data-i18n="city_pill">Ночной город</span>
+        <h3 class="city-title" data-i18n="city_quote">«Тёплый свет окон и чистый эфир любимой волны.»</h3>
+        <p class="city-desc" data-i18n="city_text">
+          Когда город зажигает фонари, радио становится главным спутником ночных поездок и вечерних мыслей. Неоновая подсветка волны реагирует на звук и создаёт ощущение живого присутствия в родном городе.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       4. KAZAKHSTAN MAP & 35 CITIES
+       ======================================================================= -->
+  <section class="section-wrap" id="map">
+    <div class="section-head reveal">
+      <span class="section-tag" data-i18n="map_tag">География эфира</span>
+      <h2 class="section-title" data-i18n="map_title">35 городов — у каждого своя волна</h2>
+      <p class="section-desc" data-i18n="map_desc">
+        От Каспийского моря до Алтая. Переключайтесь между городами и слушайте локальные эфиры в любой точке планеты.
+      </p>
+    </div>
+
+    <div class="map-card reveal">
+      <div class="map-img-wrap">
+        <img class="map-img" src="assets/header_map.webp" alt="Карта Казахстана с радиоволнами">
+      </div>
+      <div class="map-cities-bar">
+        <div class="cities-title-row">
+          <h3 data-i18n="map_cities_title">Города вещания</h3>
+          <span class="cities-count-pill" data-i18n="map_cities_count">35 городов Казахстана</span>
+        </div>
+        <div class="cities-tags-cloud">
+          <span class="city-tag">Алматы</span>
+          <span class="city-tag">Астана</span>
+          <span class="city-tag">Шымкент</span>
+          <span class="city-tag">Ақтау</span>
+          <span class="city-tag">Атырау</span>
+          <span class="city-tag">Қарағанды</span>
+          <span class="city-tag">Ақтөбе</span>
+          <span class="city-tag">Павлодар</span>
+          <span class="city-tag">Өскемен</span>
+          <span class="city-tag">Тараз</span>
+          <span class="city-tag">Қостанай</span>
+          <span class="city-tag">Семей</span>
+          <span class="city-tag">Орал</span>
+          <span class="city-tag">Қызылорда</span>
+          <span class="city-tag">Петропавл</span>
+          <span class="city-tag">Көкшетау</span>
+          <span class="city-tag">Түркістан</span>
+          <span class="city-tag">Талдықорған</span>
+          <span class="city-tag">Жезқазған</span>
+          <span class="city-tag">Екібастұз</span>
+          <span class="city-tag">Теміртау</span>
+          <span class="city-tag">Рудный</span>
+          <span class="city-tag">+ 13 городов</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       5. SCREENSHOT GALLERY
+       ======================================================================= -->
+  <section class="section-wrap" id="gallery">
+    <div class="section-head reveal">
+      <span class="section-tag" data-i18n="gallery_tag">Интерфейс</span>
+      <h2 class="section-title" data-i18n="gallery_title">Radio KZ на iPhone</h2>
+      <p class="section-desc" data-i18n="gallery_desc">
+        Так выглядит Radio KZ на iPhone.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- 01 -->
+      <div class="gallery-item reveal">
+        <div class="gallery-frame">
+          <img class="gallery-img" src="assets/screen_01.webp" alt="Главный экран Radio KZ">
+        </div>
+        <div class="gallery-num">01</div>
+        <div class="gallery-caption-title" data-i18n="screen_01_title">Главный экран</div>
+        <div class="gallery-caption-desc" data-i18n="screen_01_desc">Быстрый доступ к любимым станциям и эфиру.</div>
+      </div>
+
+      <!-- 02 -->
+      <div class="gallery-item reveal">
+        <div class="gallery-frame">
+          <img class="gallery-img" src="assets/screen_02.webp" alt="FM-шкала">
+        </div>
+        <div class="gallery-num">02</div>
+        <div class="gallery-caption-title" data-i18n="screen_02_title">FM-шкала</div>
+        <div class="gallery-caption-desc" data-i18n="screen_02_desc">Плавная настройка волны как на аналоговом радио.</div>
+      </div>
+
+      <!-- 03 -->
+      <div class="gallery-item reveal">
+        <div class="gallery-frame">
+          <img class="gallery-img" src="assets/screen_03.webp" alt="Скины плеера">
+        </div>
+        <div class="gallery-num">03</div>
+        <div class="gallery-caption-title" data-i18n="screen_03_title">Скины плеера</div>
+        <div class="gallery-caption-desc" data-i18n="screen_03_desc">Оформление под настроение: «Город», «Ретро» и другие.</div>
+      </div>
+
+      <!-- 04 -->
+      <div class="gallery-item reveal">
+        <div class="gallery-frame">
+          <img class="gallery-img" src="assets/screen_04.webp" alt="Карта городов">
+        </div>
+        <div class="gallery-num">04</div>
+        <div class="gallery-caption-title" data-i18n="screen_04_title">Карта городов</div>
+        <div class="gallery-caption-desc" data-i18n="screen_04_desc">35 городов Казахстана со своими местными станциями.</div>
+      </div>
+
+      <!-- 05 -->
+      <div class="gallery-item reveal">
+        <div class="gallery-frame">
+          <img class="gallery-img" src="assets/screen_05.webp" alt="Сөз">
+        </div>
+        <div class="gallery-num">05</div>
+        <div class="gallery-caption-title" data-i18n="screen_05_title">«Сөз»</div>
+        <div class="gallery-caption-desc" data-i18n="screen_05_desc">Мудрые мысли и цитаты великих классиков.</div>
+      </div>
+
+      <!-- 06 -->
+      <div class="gallery-item reveal">
+        <div class="gallery-frame">
+          <img class="gallery-img" src="assets/screen_06.webp" alt="Ночные часы">
+        </div>
+        <div class="gallery-num">06</div>
+        <div class="gallery-caption-title" data-i18n="screen_06_title">Ночные часы</div>
+        <div class="gallery-caption-desc" data-i18n="screen_06_desc">Удобные часы у кровати и таймер сна.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       6. ABAI QUOTE («СӨЗ»)
+       ======================================================================= -->
+  <section class="section-wrap" id="quotes">
+    <div class="section-head reveal">
+      <span class="section-tag" data-i18n="quote_tag">Культурный код</span>
+      <h2 class="section-title" data-i18n="quote_head">«Сөз» — Мудрость веков</h2>
+      <p class="section-desc" data-i18n="quote_head_desc">
+        Радио объединяет музыку и смысл. Во время прослушивания открывайте вдохновляющие строки классиков казахской литературы.
+      </p>
+    </div>
+
+    <div class="quote-card reveal">
+      <img class="quote-bg" src="assets/nature.webp" alt="Природа Казахстана">
+      <div class="quote-overlay"></div>
+      <div class="quote-content">
+        <svg class="quote-ornament" viewBox="0 0 48 48">
+          <path d="M24 4C24 15 15 24 4 24C15 24 24 33 24 44C24 33 33 24 44 24C33 24 24 15 24 4Z"/>
+        </svg>
+        <div class="quote-tag" data-i18n="quote_badge">Сөздер мен ойлар</div>
+        <div class="quote-text-kz" data-i18n="quote_kz">
+          «Ғылым таппай мақтанба,<br>Орын таппай баптанба.»
+        </div>
+        <div class="quote-text-trans" data-i18n="quote_trans">
+          «Не хвались, не обретя знаний, не красуйся, не найдя своего места.»
+        </div>
+        <div class="quote-author" data-i18n="quote_author">Абай Құнанбайұлы</div>
+        <div class="quote-sub">1845 – 1904</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       7. FEATURES GRID (8 CARDS)
+       ======================================================================= -->
+  <section class="section-wrap" id="features">
+    <div class="section-head reveal">
+      <span class="section-tag" data-i18n="feat_tag">Возможности приложения</span>
+      <h2 class="section-title" data-i18n="feat_title">Всё, что вам нужно</h2>
+      <p class="section-desc" data-i18n="feat_desc">
+        Создано специально для iPhone с вниманием к каждой детали и плавной работой.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <!-- 1. Widgets -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zm-9 9h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_1_title">Интерактивные виджеты</div>
+        <div class="feat-desc" data-i18n="feat_1_desc">Запуск любимых станций в одно касание прямо с экрана Домой.</div>
+      </div>
+
+      <!-- 2. Lock Screen -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_2_title">Экран блокировки</div>
+        <div class="feat-desc" data-i18n="feat_2_desc">Управление воспроизведением и отображение трека в реальном времени.</div>
+      </div>
+
+      <!-- 3. Siri -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_3_title">Siri & Команды</div>
+        <div class="feat-desc" data-i18n="feat_3_desc">«Привет, Siri, включи Radio NS» — мгновенный запуск голосом в авто и наушниках.</div>
+      </div>
+
+      <!-- 4. Сөз — мудрость дня (Replacing Apple Watch) -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_4_title">Сөз — мудрость дня</div>
+        <div class="feat-desc" data-i18n="feat_4_desc">Вдохновляющие цитаты великих мыслителей и поэтов Казахстана во время прослушивания.</div>
+      </div>
+
+      <!-- 5. Sleep Timer -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_5_title">Таймер сна</div>
+        <div class="feat-desc" data-i18n="feat_5_desc">Засыпайте под приятный эфир: радио мягко стихнет через заданное время.</div>
+      </div>
+
+      <!-- 6. Ночные часы (Replacing StandBy) -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_6_title">Ночные часы</div>
+        <div class="feat-desc" data-i18n="feat_6_desc">Крупные часы у кровати с мягким свечением и встроенным таймером сна.</div>
+      </div>
+
+      <!-- 7. Song Detection -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_7_title">Песня в эфире</div>
+        <div class="feat-desc" data-i18n="feat_7_desc">Определение текущего трека и мгновенное открытие в Apple Music, Spotify или YouTube Music.</div>
+      </div>
+
+      <!-- 8. Tri-lingual -->
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+        </div>
+        <div class="feat-title" data-i18n="feat_8_title">3 языка интерфейса</div>
+        <div class="feat-desc" data-i18n="feat_8_desc">Полная поддержка Қазақ тілі, Русского и English без компромиссов.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       8. MAC EXPERIENCE
+       ======================================================================= -->
+  <section class="section-wrap" id="mac">
+    <div class="mac-showcase">
+      <div class="mac-info reveal">
+        <span class="section-tag" data-i18n="mac_tag">macOS Нативно</span>
+        <h3 data-i18n="mac_title">Radio KZ на вашем Mac</h3>
+        <p data-i18n="mac_desc">
+          Компактное приложение живёт прямо в строке меню macOS. Управляйте звуком не отрываясь от работы: горячими клавишами или кликом по панели.
+        </p>
+
+        <div class="shortcuts-list">
+          <div class="shortcut-row">
+            <span class="key-badge">Space</span>
+            <span class="key-label" data-i18n="key_space">Воспроизведение / Пауза</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">←</span>
+            <span class="key-badge">→</span>
+            <span class="key-label" data-i18n="key_arrows">Переключение станции</span>
+          </div>
+          <div class="shortcut-row">
+            <span class="key-badge">F7..F9</span>
+            <span class="key-label" data-i18n="key_media">Медиаклавиши клавиатуры Mac</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="btn-mac-pill" style="display: inline-flex;">
+            <svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm16 13H4a1 1 0 1 0 0 2h16a1 1 0 1 0 0-2z"/></svg>
+            <span data-i18n="mac_status">Скоро в Mac App Store</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CSS/SVG macOS Mockup with 104.0 MHz and Glass Panel -->
+      <div class="mac-mockup-wrap reveal">
+        <div class="mac-desktop-screen">
+          <!-- macOS Menubar -->
+          <div class="mac-menubar">
+            <div class="mac-menu-left">
+              <span style="font-size: 14px;"></span>
+              <span style="font-weight: 700;">Radio KZ</span>
+              <span>Файл</span>
+              <span>Правка</span>
+            </div>
+            <div class="mac-menu-right">
+              <span style="font-size: 11px; opacity: 0.8;">ҚАЗ</span>
+              <div class="mac-active-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 12c3-4 6-4 9 0s6 4 9 0" stroke-linecap="round"/>
+                </svg>
+                <span style="font-weight: 600;">104.0</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.8;">
+                <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/>
+              </svg>
+              <span>16:40</span>
+            </div>
+          </div>
+
+          <!-- Frosted Glass Dropdown Panel (Anchored under menubar icon) -->
+          <div class="mac-panel-anchor">
+            <div class="mac-panel">
+              <div class="panel-station-row">
+                <div>
+                  <div class="panel-station-title">Gakku FM</div>
+                  <div class="panel-station-meta">104.0 MHz · Алматы</div>
+                </div>
+                <span class="panel-city-chip">Алматы</span>
+              </div>
+
+              <!-- Frequency 104.0 in Jost Thin -->
+              <div class="panel-big-freq">
+                104.0 <span>MHZ</span>
+              </div>
+
+              <!-- MiniTuner Live Neon Wave with station dots -->
+              <div class="panel-wave-wrap">
+                <svg width="100%" height="36" viewBox="0 0 260 36" fill="none">
+                  <defs>
+                    <linearGradient id="macWaveGrad" x1="0" y1="0" x2="260" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#E5322D"/>
+                      <stop offset="50%" stop-color="#8B5CF6"/>
+                      <stop offset="100%" stop-color="#2DD4BF"/>
+                    </linearGradient>
+                    <filter id="macGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <!-- Connecting wave -->
+                  <path d="M10 18 C 45 18, 55 6, 85 18 C 115 30, 135 6, 170 18 C 205 30, 225 18, 250 18" stroke="url(#macWaveGrad)" stroke-width="2.5" stroke-linecap="round" filter="url(#macGlow)"/>
+                  <!-- Station dots along wave -->
+                  <circle cx="50" cy="12" r="3" fill="#8B5CF6" opacity="0.6"/>
+                  <circle cx="115" cy="30" r="3" fill="#2DD4BF" opacity="0.6"/>
+                  <circle cx="215" cy="24" r="3" fill="#2DD4BF" opacity="0.6"/>
+                  <!-- Active glowing dot with ripple at peak -->
+                  <circle cx="170" cy="18" r="10" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.4"/>
+                  <circle cx="170" cy="18" r="5" fill="#2DD4BF" filter="url(#macGlow)"/>
+                </svg>
+              </div>
+
+              <div class="panel-controls-row">
+                <div class="panel-status-live">
+                  <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#2DD4BF; box-shadow:0 0 8px #2DD4BF;"></span>
+                  <span data-i18n="mac_on_air">В эфире</span>
+                </div>
+                <!-- Glowing Power Icon -->
+                <div class="panel-btn-power" title="Включить / Выключить">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       9. PRIVACY & PRINCIPLES
+       ======================================================================= -->
+  <section class="section-wrap" id="privacy">
+    <div class="privacy-card reveal">
+      <div class="privacy-shield">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+      </div>
+
+      <h2 class="privacy-title" data-i18n="priv_title">Без рекламы. Без подписок.<br>Мы не собираем данные.</h2>
+      
+      <p class="privacy-desc" data-i18n="priv_desc">
+        Radio KZ создано с уважением к слушателю. Никаких баннеров, видеорекламы перед запуском, трекеров геолокации или платных подписок. Только чистое радио.
+      </p>
+
+      <div class="privacy-pillars">
+        <div class="pillar-item">
+          <div class="pillar-title" data-i18n="pillar_1_title">0% рекламы</div>
+          <div class="pillar-desc" data-i18n="pillar_1_desc">Приложение никогда не прерывает эфир собственной рекламой или баннерами.</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-title" data-i18n="pillar_2_title">Конфиденциальность</div>
+          <div class="pillar-desc" data-i18n="pillar_2_desc">Мы не отслеживаем перемещения, не требуем регистрацию и не храним личные данные.</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-title" data-i18n="pillar_3_title">Навсегда бесплатно</div>
+          <div class="pillar-desc" data-i18n="pillar_3_desc">Все станции и все функции доступны сразу в полном объёме без ограничений.</div>
+        </div>
+      </div>
+
+      <div class="privacy-links">
+        <a href="privacy.html" class="privacy-link" data-i18n="link_privacy">Политика конфиденциальности</a>
+        <a href="support.html" class="privacy-link" data-i18n="link_support">Служба поддержки</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       10. FINAL CTA & FOOTER
+       ======================================================================= -->
+  <section class="final-cta">
+    <div class="reveal">
+      <h2 class="cta-title" data-i18n="cta_title">Слушайте родной эфир везде</h2>
+      <p class="cta-desc" data-i18n="cta_desc">
+        Загрузите Radio KZ прямо сейчас в App Store и оставайтесь на одной волне с Казахстаном.
+      </p>
+
+      <div style="display: flex; justify-content: center;">
+        <a href="https://apps.apple.com/kz/app/radio-kz/id6829140671" target="_blank" rel="noopener" class="btn-appstore">
+          <svg viewBox="0 0 170 170">
+            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.6-7.79-11.74-14.24-6.04-9.36-10.74-20.06-14.1-32.1-3.35-12.05-5.03-23.27-5.03-33.68 0-14.54 3.65-26.68 10.96-36.42 7.3-9.74 16.59-14.72 27.84-14.93 4.8 0 10.23 1.34 16.29 4.03 6.06 2.69 10.05 4.09 11.96 4.19 1.57-.1 5.76-1.57 12.56-4.41 6.8-2.84 12.64-4.11 17.5-3.82 13.06.87 23.47 5.76 31.24 14.67-11.39 6.88-16.97 16.53-16.73 28.94.24 9.74 4.03 17.88 11.38 24.41 7.35 6.53 16.03 10.36 26.04 11.49-2.28 7.03-5.22 14.42-8.83 22.18zM119.22 31.86c0-7.39 2.74-14.33 8.22-20.82 5.48-6.49 12.18-10.51 20.1-12.04.22 1.41.33 2.6.33 3.59 0 7.39-2.87 14.47-8.62 21.23-5.75 6.77-12.44 10.73-20.03 11.89-.11-1.3-.17-2.58-.17-3.85z"/>
+          </svg>
+          <div class="btn-appstore-text">
+            <div class="btn-appstore-sub" data-i18n="badge_sub">Загрузите в</div>
+            <div class="btn-appstore-main">App Store</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>© 2026 Aidos Marat. Radio KZ. Все права защищены.</div>
+      <div class="footer-links">
+        <a href="privacy.html" data-i18n="link_privacy">Политика</a>
+        <a href="support.html" data-i18n="link_support">Поддержка</a>
+        <a href="https://instagram.com/atobroo" target="_blank" rel="noopener">Instagram @atobroo</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =======================================================================
+       JAVASCRIPT: TRANSLATIONS, CANVAS WAVE, OBSERVERS
+       ======================================================================= -->
+  <script>
+    // -------------------------------------------------------------------------
+    // 1. TRI-LINGUAL DICTIONARY (RU / KZ / EN)
+    // -------------------------------------------------------------------------
+    const translations = {
+      ru: {
+        nav_tuner: "О радио",
+        nav_city: "Скин «Город»",
+        nav_map: "35 городов",
+        nav_gallery: "Скриншоты",
+        nav_mac: "Mac",
+        nav_privacy: "Приватность",
+        nav_download: "Загрузить",
+
+        hero_badge: "iOS & macOS · Бесплатно и без рекламы",
+        hero_title_1: "Все радио Казахстана.",
+        hero_title_2: "В одном касании.",
+        hero_subtitle: "40+ радиостанций · 35 городов · бесплатно · без рекламы",
+        badge_sub: "Загрузите в",
+        badge_soon: "Скоро",
+
+        tuner_tag: "Аналоговая душа · Цифровая чистота",
+        tuner_title: "Как настоящее радио",
+        tuner_desc: "Плавная настройка по FM-шкале, мягкий тактильный отклик и мгновенный чистый звук станций Казахстана.",
+        tuner_feat1_title: "Плавное колесо шкалы",
+        tuner_feat1_desc: "Точная настройка до сотых мегагерца с приятной отдачей Taptic Engine.",
+        tuner_feat2_title: "Автоматический город",
+        tuner_feat2_desc: "Приложение находит частоты станций в городе, где вы находитесь сейчас.",
+        tuner_feat3_title: "Мгновенный старт",
+        tuner_feat3_desc: "Никаких задержек и буферизации — эфир звучит сразу при переключении.",
+
+        city_tag: "Атмосфера дня и ночи",
+        city_title: "Скин «Город»",
+        city_desc: "Огни ночного мегаполиса оживают в ритме радиоволны. Интерфейс плавно подстраивается под время суток.",
+        city_pill: "Ночной город",
+        city_quote: "«Тёплый свет окон и чистый эфир любимой волны.»",
+        city_text: "Когда город зажигает фонари, радио становится главным спутником ночных поездок и вечерних мыслей. Неоновая подсветка волны реагирует на звук и создаёт ощущение живого присутствия в родном городе.",
+
+        map_tag: "География эфира",
+        map_title: "35 городов — у каждого своя волна",
+        map_desc: "От Каспийского моря до Алтая. Переключайтесь между городами и слушайте локальные эфиры в любой точке планеты.",
+        map_cities_title: "Города вещания",
+        map_cities_count: "35 городов Казахстана",
+
+        gallery_tag: "Интерфейс",
+        gallery_title: "Radio KZ на iPhone",
+        gallery_desc: "Так выглядит Radio KZ на iPhone.",
+        screen_01_title: "Главный экран",
+        screen_01_desc: "Быстрый доступ к любимым станциям и эфиру.",
+        screen_02_title: "FM-шкала",
+        screen_02_desc: "Плавная настройка волны как на аналоговом радио.",
+        screen_03_title: "Скины плеера",
+        screen_03_desc: "Оформление под настроение: «Город», «Ретро» и другие.",
+        screen_04_title: "Карта городов",
+        screen_04_desc: "35 городов Казахстана со своими местными станциями.",
+        screen_05_title: "«Сөз»",
+        screen_05_desc: "Мудрые мысли и цитаты великих классиков.",
+        screen_06_title: "Ночные часы",
+        screen_06_desc: "Удобные часы у кровати и таймер сна.",
+
+        quote_tag: "Культурный код",
+        quote_head: "«Сөз» — Мудрость веков",
+        quote_head_desc: "Радио объединяет музыку и смысл. Во время прослушивания открывайте вдохновляющие строки классиков казахской литературы.",
+        quote_badge: "Сөздер мен ойлар",
+        quote_kz: "«Ғылым таппай мақтанба,<br>Орын таппай баптанба.»",
+        quote_trans: "«Не хвались, не обретя знаний, не красуйся, не найдя своего места.»",
+        quote_author: "Абай Құнанбайұлы",
+
+        feat_tag: "Возможности приложения",
+        feat_title: "Всё, что вам нужно",
+        feat_desc: "Создано специально для iPhone с вниманием к каждой детали и плавной работой.",
+        feat_1_title: "Интерактивные виджеты",
+        feat_1_desc: "Запуск любимых станций в одно касание прямо с экрана Домой.",
+        feat_2_title: "Экран блокировки",
+        feat_2_desc: "Управление воспроизведением и отображение трека в реальном времени.",
+        feat_3_title: "Siri & Команды",
+        feat_3_desc: "«Привет, Siri, включи Radio NS» — мгновенный запуск голосом в авто и наушниках.",
+        feat_4_title: "Сөз — мудрость дня",
+        feat_4_desc: "Вдохновляющие цитаты великих мыслителей и поэтов Казахстана во время прослушивания.",
+        feat_5_title: "Таймер сна",
+        feat_5_desc: "Засыпайте под приятный эфир: радио мягко стихнет через заданное время.",
+        feat_6_title: "Ночные часы",
+        feat_6_desc: "Крупные часы у кровати с мягким свечением и встроенным таймером сна.",
+        feat_7_title: "Песня в эфире",
+        feat_7_desc: "Определение текущего трека и мгновенное открытие в Apple Music, Spotify или YouTube Music.",
+        feat_8_title: "3 языка интерфейса",
+        feat_8_desc: "Полная поддержка Қазақ тілі, Русского и English без компромиссов.",
+
+        mac_tag: "macOS Нативно",
+        mac_title: "Radio KZ на вашем Mac",
+        mac_desc: "Компактное приложение живёт прямо в строке меню macOS. Управляйте звуком не отрываясь от работы: горячими клавишами или кликом по панели.",
+        key_space: "Воспроизведение / Пауза",
+        key_arrows: "Переключение станции",
+        key_media: "Медиаклавиши клавиатуры Mac",
+        mac_status: "Скоро в Mac App Store",
+        mac_on_air: "В эфире",
+
+        priv_title: "Без рекламы. Без подписок.<br>Мы не собираем данные.",
+        priv_desc: "Radio KZ создано с уважением к слушателю. Никаких баннеров, видеорекламы перед запуском, трекеров геолокации или платных подписок. Только чистое радио.",
+        pillar_1_title: "0% рекламы",
+        pillar_1_desc: "Приложение никогда не прерывает эфир собственной рекламой или баннерами.",
+        pillar_2_title: "Конфиденциальность",
+        pillar_2_desc: "Мы не отслеживаем перемещения, не требуем регистрацию и не храним личные данные.",
+        pillar_3_title: "Навсегда бесплатно",
+        pillar_3_desc: "Все станции и все функции доступны сразу в полном объёме без ограничений.",
+        link_privacy: "Политика конфиденциальности",
+        link_support: "Служба поддержки",
+
+        cta_title: "Слушайте родной эфир везде",
+        cta_desc: "Загрузите Radio KZ прямо сейчас в App Store и оставайтесь на одной волне с Казахстаном."
+      },
+
+      kz: {
+        nav_tuner: "Радио туралы",
+        nav_city: "«Қала» бейнесі",
+        nav_map: "35 қала",
+        nav_gallery: "Суреттер",
+        nav_mac: "Mac",
+        nav_privacy: "Құпиялылық",
+        nav_download: "Жүктеп алу",
+
+        hero_badge: "iOS & macOS · Тегін және жарнамасыз",
+        hero_title_1: "Қазақстанның барлық радиосы.",
+        hero_title_2: "Бір түртуде.",
+        hero_subtitle: "40+ радиостанция · 35 қала · тегін · жарнамасыз",
+        badge_sub: "Жүктеп алыңыз",
+        badge_soon: "Жақында",
+
+        tuner_tag: "Аналогтық жан · Сандық тазалық",
+        tuner_title: "Шынайы радио сияқты",
+        tuner_desc: "FM-шкаласы бойынша бірқалыпты баптау, жұмсақ жанасу жауабы және Қазақстан станцияларының таза дыбысы.",
+        tuner_feat1_title: "Ыңғайлы реттеу дөңгелегі",
+        tuner_feat1_desc: "Taptic Engine жанасуымен мегагерцтің жүзден бір бөлігіне дейін дәл баптау.",
+        tuner_feat2_title: "Қаланы автоматты анықтау",
+        tuner_feat2_desc: "Қолданба сіз тұрған қаладағы станция жиіліктерін өздігінен табады.",
+        tuner_feat3_title: "Лезде қосылу",
+        tuner_feat3_desc: "Кідіріссіз және күтусіз — ауыстырған сәтте бірден эфир үні естіледі.",
+
+        city_tag: "Күндіз бен түн үйлесімі",
+        city_title: "«Қала» бейнесі",
+        city_desc: "Түнгі қала шамдары радио толқынымен бірге тыныстайды. Интерфейс тәулік уақытына сай өзгеріп отырады.",
+        city_pill: "Түнгі қала",
+        city_quote: "«Терезелердің жылы нұры және сүйікті толқынның таза үні.»",
+        city_text: "Қала көшелеріне шамдар жанғанда, радио түнгі сапарлар мен ойлардың айнымас серігіне айналады. Неон толқыны дыбысқа үн қосып, туған қала лебін сездіреді.",
+
+        map_tag: "Эфир географиясы",
+        map_title: "35 қала — әрқайсысының өз толқыны",
+        map_desc: "Каспийден Алтайға дейін. Әлемнің кез келген нүктесінде қалаларды таңдап, өңірлік эфирді тыңдаңыз.",
+        map_cities_title: "Хабар тарататын қалалар",
+        map_cities_count: "Қазақстанның 35 қаласы",
+
+        gallery_tag: "Интерфейс",
+        gallery_title: "Radio KZ iPhone-да",
+        gallery_desc: "Radio KZ iPhone-да осылай көрінеді.",
+        screen_01_title: "Басты экран",
+        screen_01_desc: "Сүйікті станциялар мен эфирге жылдам қол жеткізу.",
+        screen_02_title: "FM-шкала",
+        screen_02_desc: "Кәдімгі радиодағыдай бірқалыпты баптау.",
+        screen_03_title: "Плеер бейнелері",
+        screen_03_desc: "Көңіл-күйге сай скиндер: «Қала», «Ретро» және басқалар.",
+        screen_04_title: "Қалалар картасы",
+        screen_04_desc: "Қазақстанның 35 қаласы және жергілікті толқындар.",
+        screen_05_title: "«Сөз»",
+        screen_05_desc: "Ұлы ойшылдар мен классиктердің нақыл сөздері.",
+        screen_06_title: "Түнгі сағат",
+        screen_06_desc: "Төсек жанындағы ыңғайлы сағат және ұйқы таймері.",
+
+        quote_tag: "Мәдени код",
+        quote_head: "«Сөз» — Ғасырлар даналығы",
+        quote_head_desc: "Радио әуен мен мағынаны тоғыстырады. Музыка тыңдай отырып, қазақ әдебиеті классиктерінің ойларын оқыңыз.",
+        quote_badge: "Сөздер мен ойлар",
+        quote_kz: "«Ғылым таппай мақтанба,<br>Орын таппай баптанба.»",
+        quote_trans: "«Адам болам десеңіз, озамын десеңіз — білім іздеңіз.»",
+        quote_author: "Абай Құнанбайұлы",
+
+        feat_tag: "Қосымша мүмкіндіктері",
+        feat_title: "Барлық қажетті мүмкіндіктер",
+        feat_desc: "iPhone үшін арнайы әзірленген, әрбір бөлшегі мұқият қарастырылған.",
+        feat_1_title: "Интерактивті виджеттер",
+        feat_1_desc: "Сүйікті станцияны басты экраннан бір түрту арқылы қосу.",
+        feat_2_title: "Құлыптау экраны",
+        feat_2_desc: "Эфирді құлыптау экранынан басқару және ән атауын көру.",
+        feat_3_title: "Siri & Пәрмендер",
+        feat_3_desc: "«Сәлем Siri, Radio NS-ті қос» — көлікте немесе құлаққапта дауыспен қосу.",
+        feat_4_title: "Сөз — күн даналығы",
+        feat_4_desc: "Радио тыңдай отырып, қазақ ойшылдары мен ақындарының нақыл сөздерін оқыңыз.",
+        feat_5_title: "Ұйқы таймері",
+        feat_5_desc: "Радиомен бірге ұйықтаңыз: эфир белгіленген уақытта жайлап өшеді.",
+        feat_6_title: "Түнгі сағат",
+        feat_6_desc: "Төсек жанындағы жұмсақ жарығы бар ірі сағат және ұйқы таймері.",
+        feat_7_title: "Эфирдегі ән",
+        feat_7_desc: "Ойнап жатқан әннің атауын біліп, оны Apple Music, Spotify немесе YouTube Music-те ашыңыз.",
+        feat_8_title: "Интерфейстің 3 тілі",
+        feat_8_desc: "Қазақ тілі, Русский және English тілдерін толық қолдау.",
+
+        mac_tag: "macOS Үйлесімі",
+        mac_title: "Radio KZ сіздің Mac-ыңызда",
+        mac_desc: "Ықшам қолданба macOS мәзір жолағында орналасады. Жұмыстан қол үзбей пернелер немесе панель арқылы басқарыңыз.",
+        key_space: "Ойнату / Кідірту",
+        key_arrows: "Станцияны ауыстыру",
+        key_media: "Mac пернетақтасындағы медиа пернелер",
+        mac_status: "Жақында Mac App Store-да",
+        mac_on_air: "Эфирде",
+
+        priv_title: "Жарнамасыз. Жазылымсыз.<br>Біз дерек жинамаймыз.",
+        priv_desc: "Radio KZ тыңдарманға құрметпен жасалған. Ешқандай баннерлер, қосылар алдындағы бейнежарнама, орынды бақылау немесе ақылы жазылымдар жоқ. Тек таза радио.",
+        pillar_1_title: "0% жарнама",
+        pillar_1_desc: "Қолданба өз жарнамасымен немесе баннерлерімен эфирді ешқашан бөлмейді.",
+        pillar_2_title: "Құпиялылық",
+        pillar_2_desc: "Біз орын ауыстыруды бақыламаймыз, тіркелуді талап етпейміз және жеке деректерді сақтамаймыз.",
+        pillar_3_title: "Әрқашан тегін",
+        pillar_3_desc: "Барлық станциялар мен мүмкіндіктер бірден шектеусіз қолжетімді.",
+        link_privacy: "Құпиялылық саясаты",
+        link_support: "Қолдау қызметі",
+
+        cta_title: "Туған өлкенің үнін кез келген жерде тыңдаңыз",
+        cta_desc: "Radio KZ-ті дәл қазір App Store-дан жүктеп алып, Қазақстанмен бір толқында болыңыз."
+      },
+
+      en: {
+        nav_tuner: "About",
+        nav_city: "City Skin",
+        nav_map: "35 Cities",
+        nav_gallery: "Screenshots",
+        nav_mac: "Mac",
+        nav_privacy: "Privacy",
+        nav_download: "Download",
+
+        hero_badge: "iOS & macOS · Free & Ad-Free",
+        hero_title_1: "All Kazakhstan Radio.",
+        hero_title_2: "Just One Tap Away.",
+        hero_subtitle: "40+ radio stations · 35 cities · free · no ads",
+        badge_sub: "Download on the",
+        badge_soon: "Coming Soon",
+
+        tuner_tag: "Analog Soul · Digital Clarity",
+        tuner_title: "Like Real Radio",
+        tuner_desc: "Smooth FM dial tuning, gentle haptic feedback, and instant pure audio from Kazakhstan stations.",
+        tuner_feat1_title: "Smooth Dial Wheel",
+        tuner_feat1_desc: "Precise tuning down to hundredths of MHz with satisfying Taptic Engine feedback.",
+        tuner_feat2_title: "Automatic City",
+        tuner_feat2_desc: "The app discovers station frequencies for your current location automatically.",
+        tuner_feat3_title: "Instant Start",
+        tuner_feat3_desc: "No stuttering or buffering delays — crystal clear live broadcast starts instantly.",
+
+        city_tag: "Day & Night Ambiance",
+        city_title: "City Skin",
+        city_desc: "Night metropolis lights come alive in the rhythm of radio waves. Interface smoothly adapts to time of day.",
+        city_pill: "Night City",
+        city_quote: "“Warm lights of windows and the clear air of your favorite wave.”",
+        city_text: "When streetlights ignite across the city, radio becomes your companion for late-night drives and evening thoughts. Neon wave lighting responds to audio, creating an authentic sense of home.",
+
+        map_tag: "Broadcast Geography",
+        map_title: "35 Cities — A Wave for Everyone",
+        map_desc: "From the Caspian Sea to the Altai Mountains. Switch between cities and listen to local broadcasts from anywhere in the world.",
+        map_cities_title: "Broadcasting Cities",
+        map_cities_count: "35 Cities in Kazakhstan",
+
+        gallery_tag: "Interface",
+        gallery_title: "Radio KZ on iPhone",
+        gallery_desc: "This is Radio KZ on iPhone.",
+        screen_01_title: "Home Screen",
+        screen_01_desc: "Quick access to your favorite stations and live broadcast.",
+        screen_02_title: "FM Dial",
+        screen_02_desc: "Smooth frequency tuning just like an analog radio.",
+        screen_03_title: "Player Skins",
+        screen_03_desc: "Themes to match your vibe: “City”, “Retro”, and more.",
+        screen_04_title: "City Map",
+        screen_04_desc: "35 cities across Kazakhstan with local stations.",
+        screen_05_title: "“Söz”",
+        screen_05_desc: "Timeless wisdom and verses from Kazakh literature.",
+        screen_06_title: "Bedside Clock",
+        screen_06_desc: "Large night display and integrated sleep timer.",
+
+        quote_tag: "Cultural Heritage",
+        quote_head: "“Söz” — Wisdom of Ages",
+        quote_head_desc: "Radio unites melody and meaning. Discover inspiring verses from Kazakh literature classics while listening.",
+        quote_badge: "Words & Thoughts",
+        quote_kz: "«Ғылым таппай мақтанба,<br>Орын таппай баптанба.»",
+        quote_trans: "“Do not boast without knowledge, do not swagger without finding your place.”",
+        quote_author: "Abai Qunanbaiuly",
+
+        feat_tag: "App Features",
+        feat_title: "Everything You Need",
+        feat_desc: "Purpose-built for iPhone with great care for detail and smooth performance.",
+        feat_1_title: "Interactive Widgets",
+        feat_1_desc: "Launch your favorite stations with a single tap from the Home Screen.",
+        feat_2_title: "Lock Screen Controls",
+        feat_2_desc: "Manage playback and view live song information directly on your Lock Screen.",
+        feat_3_title: "Siri & Shortcuts",
+        feat_3_desc: "“Hey Siri, play Radio NS” — instant hands-free control in your car or headphones.",
+        feat_4_title: "Söz — Daily Wisdom",
+        feat_4_desc: "Inspiring verses and thoughts from great Kazakh writers and thinkers while listening.",
+        feat_5_title: "Sleep Timer",
+        feat_5_desc: "Fall asleep to soothing audio: playback gently fades out after your chosen duration.",
+        feat_6_title: "Bedside Clock",
+        feat_6_desc: "Large bedside night display with gentle ambient light and sleep timer.",
+        feat_7_title: "Now Playing",
+        feat_7_desc: "Live track identification with instant launch in Apple Music, Spotify, or YouTube Music.",
+        feat_8_title: "3 Interface Languages",
+        feat_8_desc: "Full, uncompromised support for Qazaqsha, Russian, and English.",
+
+        mac_tag: "Native macOS",
+        mac_title: "Radio KZ on Your Mac",
+        mac_desc: "A lightweight app living right in your macOS menu bar. Control audio without breaking focus: use hotkeys or click the panel.",
+        key_space: "Play / Pause",
+        key_arrows: "Switch Stations",
+        key_media: "Mac Keyboard Media Keys",
+        mac_status: "Coming Soon to Mac App Store",
+        mac_on_air: "On Air",
+
+        priv_title: "No Ads. No Subscriptions.<br>We Do Not Collect Data.",
+        priv_desc: "Radio KZ is built with respect for listeners. Zero banners, no pre-roll video ads, no location trackers, and no paywalls. Just pure radio.",
+        pillar_1_title: "0% Ads",
+        pillar_1_desc: "The app never interrupts your audio with third-party promotional ads or banners.",
+        pillar_2_title: "Privacy First",
+        pillar_2_desc: "We do not track movement, require sign-ups, or store any personal data.",
+        pillar_3_title: "Free Forever",
+        pillar_3_desc: "All stations and features are unlocked and available immediately without limits.",
+        link_privacy: "Privacy Policy",
+        link_support: "Support Service",
+
+        cta_title: "Listen to Home Broadcasts Anywhere",
+        cta_desc: "Download Radio KZ on the App Store today and stay on the same wave with Kazakhstan."
+      }
+    };
+
+    // -------------------------------------------------------------------------
+    // 2. LANGUAGE SWITCHER LOGIC
+    // -------------------------------------------------------------------------
+    function switchLang(lang) {
+      if (!translations[lang]) lang = 'ru';
+      try {
+        localStorage.setItem('radiokz_site_lang', lang);
+      } catch (e) {
+        // localStorage may be disabled in private mode
+      }
+
+      // Update html lang attribute
+      document.documentElement.lang = (lang === 'kz') ? 'kk' : lang;
+
+      // Update active button state
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Update text in all [data-i18n] nodes
+      const dict = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          if (dict[key].includes('<br>')) {
+            el.innerHTML = dict[key];
+          } else {
+            el.textContent = dict[key];
+          }
+        }
+      });
+    }
+
+    // Initialize Language
+    (function initLang() {
+      let saved = 'ru';
+      try {
+        saved = localStorage.getItem('radiokz_site_lang') || 'ru';
+      } catch (e) {}
+      if (!['ru', 'kz', 'en'].includes(saved)) saved = 'ru';
+      switchLang(saved);
+    })();
+
+    // -------------------------------------------------------------------------
+    // 3. HERO CANVAS: RUNNING NEON WAVE WITH GLOWING DOT & RIPPLES
+    // -------------------------------------------------------------------------
+    (function initHeroWave() {
+      const canvas = document.getElementById('heroCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let animationFrameId;
+      let width, height;
+      let phase = 0;
+      let ripples = [];
+
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        width = canvas.width = rect.width * (window.devicePixelRatio || 1);
+        height = canvas.height = rect.height * (window.devicePixelRatio || 1);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Trigger ripples periodically
+      setInterval(() => {
+        ripples.push({ radius: 0, opacity: 0.8 });
+      }, 1600);
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        const centerY = height * 0.55;
+        const amplitude = Math.min(height * 0.16, 75);
+        const wavelength = width * 0.42;
+
+        // Wave gradient (crimson -> purple -> cyan)
+        const grad = ctx.createLinearGradient(0, centerY - amplitude, width, centerY + amplitude);
+        grad.addColorStop(0, '#E5322D');
+        grad.addColorStop(0.48, '#8B5CF6');
+        grad.addColorStop(1, '#2DD4BF');
+
+        // Draw multiple layered waves
+        [0.4, 0.7, 1.0].forEach((alphaMultiplier, index) => {
+          ctx.beginPath();
+          const currentPhase = phase + (index * 0.35);
+          for (let x = 0; x <= width; x += 3) {
+            const y = centerY + Math.sin((x / wavelength) * Math.PI * 2 + currentPhase) * (amplitude * (0.8 + index * 0.15));
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = grad;
+          ctx.globalAlpha = alphaMultiplier * 0.7;
+          ctx.lineWidth = (index === 2) ? 3.5 : 1.5;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+        });
+
+        // Glowing dot at center wave peak
+        const dotX = width * 0.5;
+        const dotY = centerY + Math.sin((dotX / wavelength) * Math.PI * 2 + (phase + 0.7)) * (amplitude * 1.15);
+
+        // Render expanding ripples around the dot
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const r = ripples[i];
+          r.radius += 0.8;
+          r.opacity -= 0.009;
+          if (r.opacity <= 0) {
+            ripples.splice(i, 1);
+            continue;
+          }
+          ctx.beginPath();
+          ctx.arc(dotX, dotY, r.radius, 0, Math.PI * 2);
+          ctx.strokeStyle = '#2DD4BF';
+          ctx.globalAlpha = r.opacity * 0.5;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        // Draw the glowing central dot
+        ctx.globalAlpha = 1;
+        ctx.beginPath();
+        ctx.arc(dotX, dotY, 6.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#2DD4BF';
+        ctx.shadowColor = '#2DD4BF';
+        ctx.shadowBlur = 18;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        phase -= 0.015;
+
+        // Respect prefers-reduced-motion
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          animationFrameId = requestAnimationFrame(draw);
+        }
+      }
+
+      // Initial run
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        animationFrameId = requestAnimationFrame(draw);
+      } else {
+        // Draw static wave once
+        draw();
+      }
+    })();
+
+    // -------------------------------------------------------------------------
+    // 4. SCROLL REVEAL OBSERVER
+    // -------------------------------------------------------------------------
+    (function initRevealObserver() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>
