@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Radio KZ — Все радио Казахстана. В одном касании.</title>
-  <meta name="description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone, скоро на Mac.">
+  <meta name="description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone и Mac.">
   
   <!-- Open Graph / Facebook / Telegram / WhatsApp -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://atobroo.github.io/radiokz/">
   <meta property="og:title" content="Radio KZ — Все радио Казахстана. В одном касании.">
-  <meta property="og:description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone, скоро на Mac.">
+  <meta property="og:description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone и Mac.">
   <meta property="og:image" content="https://atobroo.github.io/radiokz/assets/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -18,7 +18,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Radio KZ — Все радио Казахстана. В одном касании.">
-  <meta name="twitter:description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone, скоро на Mac.">
+  <meta name="twitter:description" content="40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone и Mac.">
   <meta name="twitter:image" content="https://atobroo.github.io/radiokz/assets/og.jpg">
 
   <!-- Favicon & Icons -->
@@ -365,35 +365,40 @@
       letter-spacing: -0.02em;
     }
 
+    .btn-mac,
     .btn-mac-pill {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-sub);
-      padding: 12px 22px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+      padding: 12px 24px;
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-size: 15px;
-      font-weight: 500;
-      cursor: default;
-    }
-    .btn-mac-pill svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-      opacity: 0.7;
-    }
-    .pill-soon {
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 100px;
-      background: rgba(139, 92, 246, 0.2);
-      color: #C4B5FD;
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      font-size: 16px;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border: 1px solid rgba(139, 92, 246, 0.35);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-sizing: border-box;
+      min-height: 52px;
+      cursor: pointer;
+    }
+    .btn-mac:hover,
+    .btn-mac-pill:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.40);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+      color: #FFFFFF;
+    }
+    .btn-mac svg,
+    .btn-mac-pill svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      opacity: 0.9;
     }
 
     @media (max-width: 600px) {
@@ -1436,14 +1441,13 @@
           </div>
         </a>
 
-        <!-- Mac Pill -->
-        <div class="btn-mac-pill">
+        <!-- Mac Button -->
+        <a href="https://apps.apple.com/kz/app/radio-kz/id6829140671?platform=mac" target="_blank" rel="noopener" class="btn-mac">
           <svg viewBox="0 0 24 24">
             <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm16 13H4a1 1 0 1 0 0 2h16a1 1 0 1 0 0-2z"/>
           </svg>
-          <span>Mac</span>
-          <span class="pill-soon" data-i18n="badge_soon">Скоро</span>
-        </div>
+          <span data-i18n="btn_mac">Загрузить для Mac</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1782,7 +1786,7 @@
         <span class="section-tag" data-i18n="mac_tag">macOS Нативно</span>
         <h3 data-i18n="mac_title">Radio KZ на вашем Mac</h3>
         <p data-i18n="mac_desc">
-          Компактное приложение живёт прямо в строке меню macOS. Управляйте звуком не отрываясь от работы: горячими клавишами или кликом по панели.
+          Radio KZ уже доступен на Mac. Компактное приложение живёт прямо в строке меню macOS. Управляйте звуком не отрываясь от работы: горячими клавишами или кликом по панели.
         </p>
 
         <div class="shortcuts-list">
@@ -1802,10 +1806,10 @@
         </div>
 
         <div>
-          <div class="btn-mac-pill" style="display: inline-flex;">
+          <a href="https://apps.apple.com/kz/app/radio-kz/id6829140671?platform=mac" target="_blank" rel="noopener" class="btn-mac">
             <svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm16 13H4a1 1 0 1 0 0 2h16a1 1 0 1 0 0-2z"/></svg>
-            <span data-i18n="mac_status">Скоро в Mac App Store</span>
-          </div>
+            <span data-i18n="btn_mac">Загрузить для Mac</span>
+          </a>
         </div>
       </div>
 
@@ -1994,7 +1998,8 @@
         hero_title_2: "В одном касании.",
         hero_subtitle: "40+ радиостанций · 35 городов · бесплатно · без рекламы",
         badge_sub: "Загрузите в",
-        badge_soon: "Скоро",
+        btn_mac: "Загрузить для Mac",
+        meta_desc: "40+ радиостанций и 35 городов Казахстана в одном приложении. Бесплатно, без рекламы и подписок. iPhone и Mac.",
 
         tuner_tag: "Аналоговая душа · Цифровая чистота",
         tuner_title: "Как настоящее радио",
@@ -2065,11 +2070,11 @@
 
         mac_tag: "macOS Нативно",
         mac_title: "Radio KZ на вашем Mac",
-        mac_desc: "Компактное приложение живёт прямо в строке меню macOS. Управляйте звуком не отрываясь от работы: горячими клавишами или кликом по панели.",
+        mac_desc: "Radio KZ уже доступен на Mac. Компактное приложение живёт прямо в строке меню macOS. Управляйте звуком не отрываясь от работы: горячими клавишами или кликом по панели.",
         key_space: "Воспроизведение / Пауза",
         key_arrows: "Переключение станции",
         key_media: "Медиаклавиши клавиатуры Mac",
-        mac_status: "Скоро в Mac App Store",
+        mac_status: "Доступно в Mac App Store",
         mac_on_air: "В эфире",
 
         priv_title: "Без рекламы. Без подписок.<br>Мы не собираем данные.",
@@ -2101,7 +2106,8 @@
         hero_title_2: "Бір түртуде.",
         hero_subtitle: "40+ радиостанция · 35 қала · тегін · жарнамасыз",
         badge_sub: "Жүктеп алыңыз",
-        badge_soon: "Жақында",
+        btn_mac: "Mac үшін жүктеу",
+        meta_desc: "40+ радиостанция және Қазақстанның 35 қаласы бір қолданбада. Тегін, жарнамасыз және жазылымсыз. iPhone және Mac.",
 
         tuner_tag: "Аналогтық жан · Сандық тазалық",
         tuner_title: "Шынайы радио сияқты",
@@ -2172,11 +2178,11 @@
 
         mac_tag: "macOS Үйлесімі",
         mac_title: "Radio KZ сіздің Mac-ыңызда",
-        mac_desc: "Ықшам қолданба macOS мәзір жолағында орналасады. Жұмыстан қол үзбей пернелер немесе панель арқылы басқарыңыз.",
+        mac_desc: "Radio KZ енді Mac-та да қолжетімді. Ықшам қолданба macOS мәзір жолағында орналасады. Жұмыстан қол үзбей пернелер немесе панель арқылы басқарыңыз.",
         key_space: "Ойнату / Кідірту",
         key_arrows: "Станцияны ауыстыру",
         key_media: "Mac пернетақтасындағы медиа пернелер",
-        mac_status: "Жақында Mac App Store-да",
+        mac_status: "Mac App Store-да қолжетімді",
         mac_on_air: "Эфирде",
 
         priv_title: "Жарнамасыз. Жазылымсыз.<br>Біз дерек жинамаймыз.",
@@ -2208,7 +2214,8 @@
         hero_title_2: "Just One Tap Away.",
         hero_subtitle: "40+ radio stations · 35 cities · free · no ads",
         badge_sub: "Download on the",
-        badge_soon: "Coming Soon",
+        btn_mac: "Download for Mac",
+        meta_desc: "40+ radio stations and 35 cities of Kazakhstan in one app. Free, no ads, no subscriptions. iPhone and Mac.",
 
         tuner_tag: "Analog Soul · Digital Clarity",
         tuner_title: "Like Real Radio",
@@ -2279,11 +2286,11 @@
 
         mac_tag: "Native macOS",
         mac_title: "Radio KZ on Your Mac",
-        mac_desc: "A lightweight app living right in your macOS menu bar. Control audio without breaking focus: use hotkeys or click the panel.",
+        mac_desc: "Radio KZ is now available on Mac. A lightweight app living right in your macOS menu bar. Control audio without breaking focus: use hotkeys or click the panel.",
         key_space: "Play / Pause",
         key_arrows: "Switch Stations",
         key_media: "Mac Keyboard Media Keys",
-        mac_status: "Coming Soon to Mac App Store",
+        mac_status: "Available on the Mac App Store",
         mac_on_air: "On Air",
 
         priv_title: "No Ads. No Subscriptions.<br>We Do Not Collect Data.",
@@ -2323,6 +2330,14 @@
 
       // Update text in all [data-i18n] nodes
       const dict = translations[lang];
+      if (dict.meta_desc) {
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', dict.meta_desc);
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', dict.meta_desc);
+        const twDesc = document.querySelector('meta[name="twitter:description"]');
+        if (twDesc) twDesc.setAttribute('content', dict.meta_desc);
+      }
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) {
