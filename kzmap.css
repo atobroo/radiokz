@@ -1,0 +1,27 @@
+/* ===== animated Kazakhstan map ===== */
+.kzm{position:relative;width:100%;aspect-ratio:760/440;background:radial-gradient(90% 80% at 55% 45%,#1d1748 0%,#0e0f26 60%,#0a0b1c 100%);overflow:hidden}
+.kzm-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.kzm canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+.kzm-neigh{fill:rgba(255,255,255,.025);stroke:rgba(255,255,255,.08);stroke-width:.7}
+.kzm-landglow{fill:none;stroke:rgba(139,92,246,.55);stroke-width:6}
+.kzm-land{fill:url(#kzmLand)}
+.kzm-landdots{fill:url(#kzmDots)}
+.kzm-regions{fill:none;stroke:rgba(255,255,255,.09);stroke-width:.6;stroke-dasharray:2 3}
+.kzm-rivers{fill:none;stroke:rgba(45,212,191,.22);stroke-width:.8}
+.kzm-lakes{fill:rgba(45,212,191,.18);stroke:rgba(45,212,191,.35);stroke-width:.5}
+.kzm-border{fill:none;stroke:rgba(196,181,253,.75);stroke-width:1.3;stroke-linejoin:round}
+.kzm-dot{fill:#fff;filter:drop-shadow(0 0 3px rgba(255,255,255,.8));transition:r .25s,fill .25s}
+.kzm-dot.big{fill:#fff}
+.kzm-dot.on{fill:#E5322D;r:6px}
+.kzm-hit{fill:transparent;cursor:pointer}
+.kzm-ring{fill:none;stroke:#E5322D;stroke-width:1.2;opacity:0}
+.kzm-ring.ping{animation:kzmPing 1.6s cubic-bezier(.22,1,.36,1)}
+@keyframes kzmPing{0%{r:3px;opacity:.95}100%{r:22px;opacity:0}}
+.kzm-label{font:500 10.5px "Jost",-apple-system,sans-serif;fill:rgba(255,255,255,.62);pointer-events:none;paint-order:stroke;stroke:rgba(10,11,28,.85);stroke-width:3px}
+.kzm-label.big{font-size:13px;font-weight:600;fill:#fff}
+.kzm-tip{position:absolute;transform:translate(-50%,-150%);padding:.35rem .7rem;border-radius:999px;background:#E5322D;color:#fff;font:600 13px "Jost",-apple-system,sans-serif;
+  white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;box-shadow:0 6px 20px rgba(229,50,45,.45)}
+.kzm-tip.on{opacity:1}
+.kzm-chip{cursor:pointer;font:inherit;transition:background-color .25s,color .25s,border-color .25s}
+.kzm-chip.on{background:#E5322D!important;color:#fff!important;border-color:#E5322D!important}
+@media (max-width:640px){.kzm-label:not(.big){display:none}.kzm-label.big{font-size:26px;stroke-width:5px}.kzm-dot{r:5px}.kzm-dot.big{r:7px}}
